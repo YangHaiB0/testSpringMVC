@@ -1,5 +1,8 @@
 # SpringMVC
 
++ 登录
++ 拦截器
+
 文件目录结构
 ```
 |-- src
@@ -51,3 +54,7 @@
 4. 控制器中调用Service服务,去实现Mapper DAO层接口
 5. Mapper接口通过Mybatis映射文件去数据库查询,返回结果
 6. 结果保存于Model对象,返回前端页面
+
+### 分页功能细节
+1. 导入的jar包要匹配,不然不支持pageHelper
+2. 在spring-dao.xml里面配置

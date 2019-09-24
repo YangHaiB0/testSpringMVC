@@ -4,16 +4,27 @@
 <mapper namespace="com.yhb.dao.StudentMapper">
     <resultMap type="com.yhb.domain.Student" id="BaseMap">
         <!-- 以此把实体类的字段和sql的语句中的字段对应 -->
-        <id javaType="Integer" column="sid" property="studentId"/>
-        <result javaType="String" column="sname" property="studentName"/>
+        <id javaType="Integer" column="student_id" property="studentId"/>
+        <result javaType="String" column="student_name" property="studentName"/>
     </resultMap>
     <select id="searchById" resultMap="BaseMap">
-        select * from stu where sid = #{id}
+        select * from stu where student_id = #{id}
     </select>
     <select id="searchAll" resultMap="BaseMap">
         select * from stu
     </select>
     <select id="searchByName" resultMap="BaseMap">
-        select * from stu where sname = #{name}
+        select * from stu where student_name = #{name}
+    </select>
+    <select id="searchBy" resultType="com.yhb.domain.Student" parameterType="com.yhb.domain.Student">
+        select * from stu
+        <where>
+            <if test="null != studentId and '' != studentId">
+                and student_id = #{studentId}
+            </if>
+            <if test="null != studentName and '' != studentName">
+                and student_name like "%"#{studentName}"%"
+            </if>
+        </where>
     </select>
 </mapper>

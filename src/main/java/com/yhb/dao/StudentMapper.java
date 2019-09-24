@@ -20,5 +20,5 @@ public interface StudentMapper {
 
     List<Student> searchById(Integer id);
 
-
+    List<Student> searchBy(Student student);
 }

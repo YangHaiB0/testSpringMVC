@@ -1,5 +1,7 @@
 package com.yhb.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yhb.dao.StudentMapper;
 import com.yhb.domain.Student;
 import com.yhb.jedis.JedisClient;
@@ -25,29 +27,55 @@ public class StudentServiceImpl implements StudentService {
     private JedisClient jedisClient;
 
 
-    @Override
-    public List<Student> getStudentById(Integer id) {
-        return studentMapper.searchById(id);
-    }
+//    @Override
+//    public List<Student> getStudentById(Integer id) {
+//        return studentMapper.searchById(id);
+//    }
+//
+//    @Override
+//    public List<Student> getStudentByName(String name) {
+//        return studentMapper.searchByName(name);
+//    }
 
     @Override
-    public List<Student> getStudentByName(String name) {
-        return studentMapper.searchByName(name);
-    }
+    public PageInfo<Student> getStudentAll(Integer page, Integer pageSize) {
 
-    @Override
-    public List<Student> getStudentAll() {
-        List<Student> returnStudentsList;
-        String studentAllJsonNameInRedis = "test_stu_studentAll";
-        String studentJson = jedisClient.get(studentAllJsonNameInRedis);
-        if (StringUtils.isBlank(studentJson)) {
-            returnStudentsList = studentMapper.searchAll();
-            String studentToJson = JsonUtils.objectToJson(returnStudentsList);
-            jedisClient.set(studentAllJsonNameInRedis, studentToJson);
-        }else {
-            returnStudentsList = (List<Student>) JsonUtils.jsonToPojo(studentJson, List.class);
+        try {
+            //从Redis中获取student数据
+            String studentAllJsonNameInRedis = "test_stu_studentAll_";
+            String studentJson = this.jedisClient.get(studentAllJsonNameInRedis + page);
+            //判断studentJson是否为空
+            if (StringUtils.isBlank(studentJson)) {
+                //设置分页数据
+                PageHelper.startPage(page, pageSize);
+                //从数据库中查询数据
+                List<Student> studentsList = this.studentMapper.searchAll();
+                //PageHelper生成pageInfo
+                PageInfo<Student> pageInfo = new PageInfo<>(studentsList);
+                pageInfo.setPageNum((page < 1) ? 1 : page);
+                pageInfo.setPageNum((page > pageInfo.getPages()) ? pageInfo.getPages() : page);
+                //转换为json数据
+                String studentsJson = JsonUtils.objectToJson(pageInfo);
+                //存入数据库
+                this.jedisClient.set(studentAllJsonNameInRedis + pageInfo.getPageNum(), studentsJson);
+                this.jedisClient.expire(studentAllJsonNameInRedis + pageInfo.getPageNum(), 3600);
+                return pageInfo;
+            } else {
+                //重新设置存活时间
+                this.jedisClient.expire(studentAllJsonNameInRedis + page, 3600);
+                //将Redis获取数据转换为pageInfo对象
+                PageInfo pageInfo = JsonUtils.jsonToPojo(studentJson, PageInfo.class);
+                return pageInfo;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+    }
 
-        return returnStudentsList;
+    @Override
+    public PageInfo<Student> getStudentBy(Student student) {
+        PageHelper.startPage(1, 1);
+        return new PageInfo<>(studentMapper.searchBy(student));
     }
 }

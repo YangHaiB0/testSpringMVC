@@ -29,48 +29,48 @@
                 <a class="navbar-brand" href="/">SSM学习</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-<%--                <form class="navbar-form navbar-left" action="/" method="get">--%>
-<%--                    <div class="form-group">--%>
-<%--                        <input type="text" class="form-control" name="search" placeholder="搜索问题">--%>
-<%--                    </div>--%>
-<%--                    <button type="submit" class="btn btn-default">搜索</button>--%>
-<%--                </form>--%>
+                <%--                <form class="navbar-form navbar-left" action="/" method="get">--%>
+                <%--                    <div class="form-group">--%>
+                <%--                        <input type="text" class="form-control" name="search" placeholder="搜索问题">--%>
+                <%--                    </div>--%>
+                <%--                    <button type="submit" class="btn btn-default">搜索</button>--%>
+                <%--                </form>--%>
                 <ul class="nav navbar-nav navbar-right">
-<%--                    <li th:if="${session.user!=null}">--%>
-<%--                        <a href="/publish">提问</a>--%>
-<%--                    </li>--%>
-<%--                    <li th:if="${session.user!=null}">--%>
-<%--                        <a href="/profile/replies">通知--%>
-<%--                            <span class="badge" th:text="${session.unreadNotificationCount}"></span>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-                    <c:if test="${session.user==null}">
-                        <li class="dropdown" c:if="${session.user!=null}">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                               aria-expanded="false">
-                                <span th:text="${session.user.getName()}"></span>
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/profile/questions">我的问题</a></li>
-                                <li><a href="/logout">退出登录</a></li>
-                            </ul>
-                        </li>
-                    </c:if>
-<%--                    <li class="dropdown" c:if="${session.user!=null}">--%>
-<%--                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"--%>
-<%--                           aria-expanded="false">--%>
-<%--                            <span th:text="${session.user.getName()}"></span>--%>
-<%--                            <span class="caret"></span>--%>
-<%--                        </a>--%>
-<%--                        <ul class="dropdown-menu">--%>
-<%--                            <li><a href="/profile/questions">我的问题</a></li>--%>
-<%--                            <li><a href="/logout">退出登录</a></li>--%>
-<%--                        </ul>--%>
-<%--                    </li>--%>
-<%--                    <li th:if="not ${session.user!=null}">--%>
-<%--                        <a th:href="@{https://github.com/login/oauth/authorize(client_id='8289dadb3d005ad10d07',redirect_uri=${session.redirectUri},scope='user',state=1)}">登录</a>--%>
-<%--                    </li>--%>
+                    <%--                    <li th:if="${session.user!=null}">--%>
+                    <%--                        <a href="/publish">提问</a>--%>
+                    <%--                    </li>--%>
+                    <%--                    <li th:if="${session.user!=null}">--%>
+                    <%--                        <a href="/profile/replies">通知--%>
+                    <%--                            <span class="badge" th:text="${session.unreadNotificationCount}"></span>--%>
+                    <%--                        </a>--%>
+                    <%--                    </li>--%>
+                    <%--                    <c:if test="${session.user==null}">--%>
+                    <%--                        <li class="dropdown" c:if="${session.user!=null}">--%>
+                    <%--                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"--%>
+                    <%--                               aria-expanded="false">--%>
+                    <%--                                <span th:text="${session.user.getName()}"></span>--%>
+                    <%--                                <span class="caret"></span>--%>
+                    <%--                            </a>--%>
+                    <%--                            <ul class="dropdown-menu">--%>
+                    <%--                                <li><a href="/profile/questions">我的问题</a></li>--%>
+                    <%--                                <li><a href="/logout">退出登录</a></li>--%>
+                    <%--                            </ul>--%>
+                    <%--                        </li>--%>
+                    <%--                    </c:if>--%>
+                    <%--                    <li class="dropdown" c:if="${session.user!=null}">--%>
+                    <%--                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"--%>
+                    <%--                           aria-expanded="false">--%>
+                    <%--                            <span th:text="${session.user.getName()}"></span>--%>
+                    <%--                            <span class="caret"></span>--%>
+                    <%--                        </a>--%>
+                    <%--                        <ul class="dropdown-menu">--%>
+                    <%--                            <li><a href="/profile/questions">我的问题</a></li>--%>
+                    <%--                            <li><a href="/logout">退出登录</a></li>--%>
+                    <%--                        </ul>--%>
+                    <%--                    </li>--%>
+                    <%--                    <li th:if="not ${session.user!=null}">--%>
+                    <%--                        <a th:href="@{https://github.com/login/oauth/authorize(client_id='8289dadb3d005ad10d07',redirect_uri=${session.redirectUri},scope='user',state=1)}">登录</a>--%>
+                    <%--                    </li>--%>
                 </ul>
             </div>
         </div>
@@ -84,13 +84,13 @@
                     <td>studentId</td>
                     <td>studentName</td>
                 </tr>
-                <c:if test="${empty student}">
+                <c:if test="${empty studentPageInfo.list}">
                     <tr>
                         <td></td>
                         <td>暂无数据</td>
                     </tr>
                 </c:if>
-                <c:forEach items="${student}" var="student">
+                <c:forEach items="${studentPageInfo.list}" var="student">
                     <tr>
                         <td>${student.studentId}</td>
                         <td>${student.studentName}</td>
@@ -112,33 +112,31 @@
                     <li><a href="/landing">AmazeUI首页</a></li>
                 </ul>
             </div>
-
             <!-- Contextual button for informational alert messages -->
             <div>
                 <button type="button" class="btn btn-info">
                     <a href="/getStudentAll">获得所有学生信息</a>
                 </button>
             </div>
-
             <div>
-                <form class="form-inline" action="/getStudentById" method="get">
+                <form class="form-inline" action="/getStudent" method="get">
                     <div class="form-group">
                         <label class="sr-only" for="studentId">ID</label>
                         <div class="input-group">
                             <div class="input-group-addon">学生ID:</div>
-                            <input type="text" class="form-control" id="studentId" name="id" placeholder="ID">
+                            <input type="text" class="form-control" id="studentId" name="id" placeholder="请输入ID">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-info">学生查询</button>
                 </form>
             </div>
             <div>
-                <form class="form-inline" action="/getStudentByName" method="get">
+                <form class="form-inline" action="/getStudent" method="get">
                     <div class="form-group">
                         <label class="sr-only" for="studentName">Name</label>
                         <div class="input-group">
                             <div class="input-group-addon">学生Name:</div>
-                            <input type="text" class="form-control" id="studentName" name="name" placeholder="ID">
+                            <input type="text" class="form-control" id="studentName" name="name" placeholder="请输入名字">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-info">学生查询</button>
