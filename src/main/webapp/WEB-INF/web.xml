@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE web-app PUBLIC-->
+<!--        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"-->
+<!--        "http://java.sun.com/dtd/web-app_2_3.dtd" >-->
+<!--        web-app_2_3.dtd，这就导致后面的servlet、jsp、EL等采用的全是2.3版本，而在2.3版本中，jsp页面是不支持EL的，无法得到正确的解析。-->
+
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+    <servlet>
+        <!--    配置前端过滤器    -->
+        <servlet-name>MVCServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--    初始化时加载配置文件    -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-*.xml</param-value>
+        </init-param>
+        <!--    表示容器在启动时立即加载    -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MVCServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/static/*</url-pattern>
+    </servlet-mapping>
+</web-app>

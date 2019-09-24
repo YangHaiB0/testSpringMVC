@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhb.dao.StudentMapper">
+    <resultMap type="com.yhb.domain.Student" id="BaseMap">
+        <!-- 以此把实体类的字段和sql的语句中的字段对应 -->
+        <id javaType="Integer" column="sid" property="studentId"/>
+        <result javaType="String" column="sname" property="studentName"/>
+    </resultMap>
+    <select id="searchById" resultMap="BaseMap">
+        select * from stu where sid = #{id}
+    </select>
+    <select id="searchAll" resultMap="BaseMap">
+        select * from stu
+    </select>
+    <select id="searchByName" resultMap="BaseMap">
+        select * from stu where sname = #{name}
+    </select>
+</mapper>
