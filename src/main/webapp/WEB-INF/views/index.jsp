@@ -29,48 +29,22 @@
                 <a class="navbar-brand" href="/">SSM学习</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <%--                <form class="navbar-form navbar-left" action="/" method="get">--%>
-                <%--                    <div class="form-group">--%>
-                <%--                        <input type="text" class="form-control" name="search" placeholder="搜索问题">--%>
-                <%--                    </div>--%>
-                <%--                    <button type="submit" class="btn btn-default">搜索</button>--%>
-                <%--                </form>--%>
                 <ul class="nav navbar-nav navbar-right">
-                    <%--                    <li th:if="${session.user!=null}">--%>
-                    <%--                        <a href="/publish">提问</a>--%>
-                    <%--                    </li>--%>
-                    <%--                    <li th:if="${session.user!=null}">--%>
-                    <%--                        <a href="/profile/replies">通知--%>
-                    <%--                            <span class="badge" th:text="${session.unreadNotificationCount}"></span>--%>
-                    <%--                        </a>--%>
-                    <%--                    </li>--%>
-                    <%--                    <c:if test="${session.user==null}">--%>
-                    <%--                        <li class="dropdown" c:if="${session.user!=null}">--%>
-                    <%--                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"--%>
-                    <%--                               aria-expanded="false">--%>
-                    <%--                                <span th:text="${session.user.getName()}"></span>--%>
-                    <%--                                <span class="caret"></span>--%>
-                    <%--                            </a>--%>
-                    <%--                            <ul class="dropdown-menu">--%>
-                    <%--                                <li><a href="/profile/questions">我的问题</a></li>--%>
-                    <%--                                <li><a href="/logout">退出登录</a></li>--%>
-                    <%--                            </ul>--%>
-                    <%--                        </li>--%>
-                    <%--                    </c:if>--%>
-                    <%--                    <li class="dropdown" c:if="${session.user!=null}">--%>
-                    <%--                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"--%>
-                    <%--                           aria-expanded="false">--%>
-                    <%--                            <span th:text="${session.user.getName()}"></span>--%>
-                    <%--                            <span class="caret"></span>--%>
-                    <%--                        </a>--%>
-                    <%--                        <ul class="dropdown-menu">--%>
-                    <%--                            <li><a href="/profile/questions">我的问题</a></li>--%>
-                    <%--                            <li><a href="/logout">退出登录</a></li>--%>
-                    <%--                        </ul>--%>
-                    <%--                    </li>--%>
-                    <%--                    <li th:if="not ${session.user!=null}">--%>
-                    <%--                        <a th:href="@{https://github.com/login/oauth/authorize(client_id='8289dadb3d005ad10d07',redirect_uri=${session.redirectUri},scope='user',state=1)}">登录</a>--%>
-                    <%--                    </li>--%>
+                    <c:if test="${sessionScope.user!=null}">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                <c:set var="name" value="${sessionScope.user.getUserName()}"/>
+                                <span>${name}</span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Unknown</a></li>
+                                <li><a href="/logout">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
         </div>
@@ -97,7 +71,6 @@
                     </tr>
                 </c:forEach>
             </table>
-
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
             <!-- Single button -->
@@ -110,6 +83,8 @@
                     <li><a href="/hello">HelloWord</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="/landing">AmazeUI首页</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/login">Login</a></li>
                 </ul>
             </div>
             <!-- Contextual button for informational alert messages -->
@@ -143,7 +118,6 @@
                 </form>
             </div>
         </div>
-
     </div>
 
 </div>

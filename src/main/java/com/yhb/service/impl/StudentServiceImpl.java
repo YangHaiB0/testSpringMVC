@@ -75,7 +75,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public PageInfo<Student> getStudentBy(Student student) {
-        PageHelper.startPage(1, 1);
+        // TODO: 2019-09-25 bug:当查询为""时,默认查询第一个人   sql:select * from stu limit 0,1
+        PageHelper.startPage(1, 4);
         return new PageInfo<>(studentMapper.searchBy(student));
     }
 }
