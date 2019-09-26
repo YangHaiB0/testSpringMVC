@@ -76,27 +76,32 @@
                     <ul class="pagination">
                         <c:choose>
                             <c:when test="${!studentPageInfo.isFirstPage}">
-                                <li><a href="/${requestMapping}?page=1&name=${searchName}&id=${searchId}" target="_self">首页</a></li>
+                                <li><a href="/${requestMapping}?page=1&name=${searchName}&id=${searchId}"
+                                       target="_self">首页</a></li>
                             </c:when>
                         </c:choose>
                         <c:choose>
                             <c:when test="${studentPageInfo.hasPreviousPage}">
-                                <li><a href="/${requestMapping}?page=${studentPageInfo.pageNum-1}&name=${searchName}&id=${searchId}"
+                                <li>
+                                    <a href="/${requestMapping}?page=${studentPageInfo.pageNum-1}&name=${searchName}&id=${searchId}"
                                        target="_self">${studentPageInfo.prePage}</a></li>
                             </c:when>
                         </c:choose>
-                        <li><a href="/${requestMapping}?page=${studentPageInfo.pageNum}&name=${searchName}&id=${searchId}"
+                        <li>
+                            <a href="/${requestMapping}?page=${studentPageInfo.pageNum}&name=${searchName}&id=${searchId}"
                                arget="_self">${studentPageInfo.pageNum}</a>
                         </li>
                         <c:choose>
                             <c:when test="${studentPageInfo.hasNextPage}">
-                                <li><a href="/${requestMapping}?page=${studentPageInfo.pageNum+1}&name=${searchName}&id=${searchId}"
+                                <li>
+                                    <a href="/${requestMapping}?page=${studentPageInfo.pageNum+1}&name=${searchName}&id=${searchId}"
                                        target="_self">${studentPageInfo.nextPage}</a></li>
                             </c:when>
                         </c:choose>
                         <c:choose>
                             <c:when test="${!studentPageInfo.isLastPage}">
-                                <li><a href="/${requestMapping}?page=${studentPageInfo.pages}&name=${searchName}&id=${searchId}"
+                                <li>
+                                    <a href="/${requestMapping}?page=${studentPageInfo.pages}&name=${searchName}&id=${searchId}"
                                        target="_self">尾页</a></li>
                             </c:when>
                         </c:choose>
@@ -127,7 +132,7 @@
                 </button>
             </div>
             <div>
-                <form class="form-inline" action="/getStudent" method="get">
+                <form class="form-inline" action="/getStudent" method="post" onsubmit="return searchCheck()">
                     <div class="form-group">
                         <label class="sr-only" for="studentId">ID</label>
                         <div class="input-group">
@@ -139,7 +144,7 @@
                 </form>
             </div>
             <div>
-                <form class="form-inline" action="/getStudent" method="get">
+                <form class="form-inline" action="/getStudent" method="post" onsubmit="return searchCheck()">
                     <div class="form-group">
                         <label class="sr-only" for="studentName">Name</label>
                         <div class="input-group">
@@ -153,5 +158,22 @@
         </div>
     </div>
 </div>
+<script>
+    function searchCheck() {
+        //得到输入框对象
+        var studentId = document.getElementById("studentId");
+        var studentName = document.getElementById("studentName");
+        //判断输入框是否有内容
+        if (studentId.value.length === 0 && studentName.value.length === 0) {
+            confirm("查询不能全部为空");
+            return false;
+        }
+        if (studentId.value.length !== 0 && studentName.value.length !== 0){
+            confirm("不能输入多个条件查询")
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>

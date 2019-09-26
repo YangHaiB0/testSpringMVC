@@ -49,7 +49,7 @@
         <br>
         <br>
 
-        <form method="post" class="am-form" action="/loginCheck">
+        <form method="post" class="am-form" action="/loginCheck" onsubmit="return searchCheck()">
             <label for="name">用户名:</label>
             <input type="text" name="name" id="name" value="">
             <br>
@@ -69,5 +69,23 @@
         <p>© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
     </div>
 </div>
+<script>
+    function searchCheck() {
+        //得到输入框对象
+        var name = document.getElementById("name");
+        var password = document.getElementById("password");
+        //判断输入框是否有内容
+        if (name.value.length === 0) {
+            confirm("用户名不能为空");
+            return false;
+        }
+        if (password.value.length === 0) {
+            confirm("密码不能为空");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 </body>
 </html>
