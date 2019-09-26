@@ -71,6 +71,39 @@
                     </tr>
                 </c:forEach>
             </table>
+            <c:if test="${studentPageInfo != null}">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${!studentPageInfo.isFirstPage}">
+                                <li><a href="/${requestMapping}?page=1&name=${searchName}&id=${searchId}" target="_self">首页</a></li>
+                            </c:when>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${studentPageInfo.hasPreviousPage}">
+                                <li><a href="/${requestMapping}?page=${studentPageInfo.pageNum-1}&name=${searchName}&id=${searchId}"
+                                       target="_self">${studentPageInfo.prePage}</a></li>
+                            </c:when>
+                        </c:choose>
+                        <li><a href="/${requestMapping}?page=${studentPageInfo.pageNum}&name=${searchName}&id=${searchId}"
+                               arget="_self">${studentPageInfo.pageNum}</a>
+                        </li>
+                        <c:choose>
+                            <c:when test="${studentPageInfo.hasNextPage}">
+                                <li><a href="/${requestMapping}?page=${studentPageInfo.pageNum+1}&name=${searchName}&id=${searchId}"
+                                       target="_self">${studentPageInfo.nextPage}</a></li>
+                            </c:when>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${!studentPageInfo.isLastPage}">
+                                <li><a href="/${requestMapping}?page=${studentPageInfo.pages}&name=${searchName}&id=${searchId}"
+                                       target="_self">尾页</a></li>
+                            </c:when>
+                        </c:choose>
+                    </ul>
+                </nav>
+            </c:if>
+
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
             <!-- Single button -->
@@ -119,7 +152,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>

@@ -25,6 +25,9 @@ public class StudentController {
                                 @RequestParam(value = "pageSize", defaultValue = "4") Integer pageSize) {
         PageInfo<Student> studentList = studentService.getStudentAll(page, pageSize);
         model.addAttribute("studentPageInfo", studentList);
+        model.addAttribute("requestMapping","getStudentAll");
+        model.addAttribute("searchId",null);
+        model.addAttribute("searchName",null);
         return "/index";
     }
 
@@ -38,24 +41,10 @@ public class StudentController {
 
         PageInfo<Student> studentBy = studentService.getStudentBy(student);
         model.addAttribute("studentPageInfo", studentBy);
+        model.addAttribute("requestMapping","getStudent");
+        model.addAttribute("searchId",id);
+        model.addAttribute("searchName",name);
         return "/index";
     }
-
-//    @RequestMapping("/getStudentById")
-//    public String getStudentById(Model model,
-//                                 @RequestParam(value = "id", required = false) Integer id) {
-//        List<Student> studentList = studentService.getStudentById(id);
-//        model.addAttribute("student", studentList);
-//        return "/index";
-//    }
-//
-//    @RequestMapping("/getStudentByName")
-//    public String getStudentByName(Model model,
-//                                   @RequestParam(value = "name", required = false) String name) {
-//        List<Student> studentList = studentService.getStudentByName(name);
-//        model.addAttribute("student", studentList);
-//        return "/index";
-//    }
-
 
 }

@@ -34,6 +34,10 @@ public class LoginInterceptor implements HandlerInterceptor {
                     if (user != null) {
                         //存在用户,将用户信息发送到前端session
                         request.getSession().setAttribute("user", user);
+                        //重新激活cookie存活时间
+                        cookie.setMaxAge(0);
+                        Cookie cookie_new = new Cookie("token", token);
+                        cookie_new.setMaxAge(3600);
                         return true;
                     }
                     break;

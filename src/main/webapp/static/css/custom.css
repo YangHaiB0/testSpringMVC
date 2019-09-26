@@ -1,5 +1,8 @@
-
-
+/*底部页码*/
+.footNum{
+    height: 30px;
+    margin:15px 0;
+}
 .custom-index-list {
     font-size: 25px;
 }
