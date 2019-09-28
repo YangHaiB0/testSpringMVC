@@ -18,7 +18,7 @@ public interface UserMapper {
      * 更新用户信息
      * @param user 更新后的用户对象
      */
-    void updateUser(User user);
+    void updateUserToken(User user);
 
     /**
      * 通过Token查询用户

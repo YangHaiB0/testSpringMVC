@@ -51,12 +51,12 @@ public class LoginController {
         user.setUserName(name);
         user.setUserPassword(password);
 
-        //登录验证
-        if (userService.checkedUser(user)) {
+        User searchUser = userService.checkedUser(user);
+        if (Boolean.TRUE.equals(searchUser != null)) {
             //生成一个token
             String token = UUID.randomUUID().toString();
             user.setToken(token);
-            //更新user
+            //更新user token
             userService.updateUser(user);
             //将token添加到Cookie和Session中
             Cookie cookie = new Cookie("token", token);
@@ -64,16 +64,22 @@ public class LoginController {
             response.addCookie(cookie);
 
             request.getSession().setAttribute("user", user);
-            return "redirect:/";
-        } else {
-            //没有用户 重回登录页面
-            response.setCharacterEncoding("GBK");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('登录密码错误或没有当前账号'); window.location='login' </script>");
-            out.flush();
-            out.close();
-            return "login";
+            if (searchUser.isAdmin()){
+                //管理员用户登录
+                return "redirect:/adminStudent";
+            }else {
+                //普通用户登录
+                return "redirect:/";
+            }
         }
+        //没有用户 重回登录页面
+        response.setCharacterEncoding("GBK");
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('登录密码错误或没有当前账号'); window.location='login' </script>");
+        out.flush();
+        out.close();
+        return "login";
+
     }
 
     @RequestMapping("/logout")

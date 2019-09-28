@@ -16,13 +16,14 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public boolean checkedUser(User user) {
-        return userMapper.getUser(user) != null;
+    public User checkedUser(User user) {
+        //返回查询到的用户信息是否为空
+        return userMapper.getUser(user);
     }
 
     @Override
     public void updateUser(User user) {
-        userMapper.updateUser(user);
+        userMapper.updateUserToken(user);
     }
 
     @Override

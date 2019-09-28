@@ -12,7 +12,7 @@ public interface UserService {
      * @param user 输入的用户信息
      * @return boolean
      */
-    boolean checkedUser(User user);
+    User checkedUser(User user);
 
     /**
      * 更新用户
