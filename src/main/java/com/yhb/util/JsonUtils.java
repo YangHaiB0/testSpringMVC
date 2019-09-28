@@ -2,6 +2,8 @@ package com.yhb.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author YangHaiBo
@@ -9,7 +11,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class JsonUtils {
     private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final Log log = LogFactory.getLog(JsonUtils.class);
 
+    private JsonUtils(){
+        super();
+    }
 
     /**
      * 将对象转换为json对象
@@ -19,10 +25,9 @@ public class JsonUtils {
      */
     public static String objectToJson(Object data){
         try{
-            String string = MAPPER.writeValueAsString(data);
-            return string;
+            return MAPPER.writeValueAsString(data);
         }catch (JsonProcessingException e){
-            e.printStackTrace();
+            log.error(e);
         }
         return null;
     }
@@ -36,10 +41,9 @@ public class JsonUtils {
      */
     public static <T> T jsonToPojo(String jsonData,Class<T> beanType){
         try {
-            T t= MAPPER.readValue(jsonData,beanType);
-            return t;
+            return MAPPER.readValue(jsonData, beanType);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e);
         }
         return null;
     }

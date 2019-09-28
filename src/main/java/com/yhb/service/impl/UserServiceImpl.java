@@ -28,6 +28,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void selectUser(String token) {
-
+        //do nothing
     }
 }

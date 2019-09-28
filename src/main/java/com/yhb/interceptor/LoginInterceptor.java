@@ -36,8 +36,9 @@ public class LoginInterceptor implements HandlerInterceptor {
                         request.getSession().setAttribute("user", user);
                         //重新激活cookie存活时间
                         cookie.setMaxAge(0);
-                        Cookie cookie_new = new Cookie("token", token);
-                        cookie_new.setMaxAge(3600);
+                        Cookie newCookie = new Cookie("token", token);
+                        newCookie.setHttpOnly(true);
+                        newCookie.setMaxAge(3600);
                         return true;
                     }
                     break;
@@ -50,11 +51,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
+        //do nothing
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
+        //do nothing
     }
 }

@@ -8,6 +8,8 @@ import com.yhb.jedis.JedisClient;
 import com.yhb.service.StudentService;
 import com.yhb.util.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ import java.util.List;
  */
 @Service
 public class StudentServiceImpl implements StudentService {
+    public static final Log log = LogFactory.getLog(StudentServiceImpl.class);
 
     @Autowired
     private StudentMapper studentMapper;
@@ -26,19 +29,8 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private JedisClient jedisClient;
 
-
-//    @Override
-//    public List<Student> getStudentById(Integer id) {
-//        return studentMapper.searchById(id);
-//    }
-//
-//    @Override
-//    public List<Student> getStudentByName(String name) {
-//        return studentMapper.searchByName(name);
-//    }
-
     @Override
-    public PageInfo<Student> getStudentAll(Integer page, Integer pageSize) {
+    public PageInfo<Student> getStudentAll(Integer page, Integer pageSize){
 
         try {
             //从Redis中获取student数据
@@ -64,18 +56,16 @@ public class StudentServiceImpl implements StudentService {
                 //重新设置存活时间
                 this.jedisClient.expire(studentAllJsonNameInRedis + page, 3600);
                 //将Redis获取数据转换为pageInfo对象
-                PageInfo pageInfo = JsonUtils.jsonToPojo(studentJson, PageInfo.class);
-                return pageInfo;
+                return JsonUtils.jsonToPojo(studentJson, PageInfo.class);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            log.debug(e);
+            return null;
         }
     }
 
     @Override
     public PageInfo<Student> getStudentBy(Student student) {
-        // TODO: 2019-09-25 bug:当查询为""时,默认查询第一个人   sql:select * from stu limit 0,1
         PageHelper.startPage(1, 4);
         return new PageInfo<>(studentMapper.searchBy(student));
     }

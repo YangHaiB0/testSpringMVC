@@ -19,7 +19,7 @@ public class HelloController {
     @Autowired
     private UserMapper userMapper;
 
-    @RequestMapping("/")
+    @RequestMapping(path = "/")
     public String index(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length != 0) {
@@ -40,12 +40,12 @@ public class HelloController {
         return "index";
     }
 
-    @RequestMapping("/hello")
+    @RequestMapping(path = "/hello")
     public String hello() {
         return "hello";
     }
 
-    @RequestMapping("/landing")
+    @RequestMapping(path = "/landing")
     public String landing() {
         return "landing";
     }

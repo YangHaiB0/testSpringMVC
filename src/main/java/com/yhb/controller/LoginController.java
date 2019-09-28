@@ -20,6 +20,7 @@ import java.util.UUID;
  */
 @Controller
 public class LoginController {
+    private static final String TOKEN = "token";
 
     @Autowired
     private UserService userService;
@@ -30,7 +31,7 @@ public class LoginController {
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length != 0) {
             for (Cookie cookie : cookies) {
-                if ("token".equals(cookie.getName())) {
+                if (TOKEN.equals(cookie.getName())) {
                     response.setCharacterEncoding("GBK");
                     PrintWriter out = response.getWriter();
                     out.println("<script>alert('已经登录'); window.location='/' </script>");
@@ -54,12 +55,12 @@ public class LoginController {
         User searchUser = userService.checkedUser(user);
         if (Boolean.TRUE.equals(searchUser != null)) {
             //生成一个token
-            String token = UUID.randomUUID().toString();
-            user.setToken(token);
+            user.setToken(UUID.randomUUID().toString());
             //更新user token
             userService.updateUser(user);
             //将token添加到Cookie和Session中
-            Cookie cookie = new Cookie("token", token);
+            Cookie cookie = new Cookie(TOKEN, TOKEN);
+            cookie.setHttpOnly(true);
             cookie.setMaxAge(3600);
             response.addCookie(cookie);
 
@@ -87,8 +88,9 @@ public class LoginController {
         //删除浏览器中用户信息
         request.getSession().removeAttribute("user");
         //清理token信息
-        Cookie cookie = new Cookie("token", null);
+        Cookie cookie = new Cookie(TOKEN, null);
         //清理cookie信息
+        cookie.setHttpOnly(true);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
         return "/login";

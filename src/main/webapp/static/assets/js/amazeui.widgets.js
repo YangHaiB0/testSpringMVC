@@ -3553,10 +3553,8 @@ define("ui.add2home", [], function(require, exports, module) {
     ath.OSVersion = _ua.match(/(OS|Android) (\d+[_\.]\d+)/);
     ath.OSVersion = ath.OSVersion && ath.OSVersion[2] ? +ath.OSVersion[2].replace("_", ".") : 0;
     ath.isStandalone = window.navigator.standalone || ath.isMobileChrome && screen.height - document.documentElement.clientHeight < 40;
-    // TODO: check the lame polyfill
     ath.isTablet = ath.isMobileSafari && _ua.indexOf("iPad") > -1 || ath.isMobileChrome && _ua.indexOf("Mobile") < 0;
     ath.isCompatible = ath.isMobileSafari && ath.OSVersion >= 6 || ath.isMobileChrome;
-    // TODO: add winphone
     var _defaultSession = {
         lastDisplayTime: 0,
         // last time we displayed the message
@@ -4458,7 +4456,7 @@ define("ui.iscroll-lite", [], function(require, exports, module) {
                     return;
                 }
                 if (this.options.preventDefault) {
-                    // increases performance on Android? TODO: check!
+                    // increases performance on Android?
                     e.preventDefault();
                 }
                 var point = e.touches ? e.touches[0] : e, deltaX = point.pageX - this.pointX, deltaY = point.pageY - this.pointY, timestamp = utils.getTime(), newX, newY, absDistX, absDistY;
@@ -5298,7 +5296,6 @@ define("ui.pureview", [ "core", "zepto.extend.fx", "zepto.extend.data", "zepto.e
             e.preventDefault();
             var clicked = $images.index(this);
             // Invoke WeChat ImagePreview in WeChat
-            // TODO: detect WeChat before init
             if (options.weChatImagePreview && window.WeixinJSBridge) {
                 window.WeixinJSBridge.invoke("imagePreview", {
                     current: imgUrls[clicked],
@@ -5693,7 +5690,6 @@ define("ui.share", [ "core", "zepto.extend.fx", "zepto.extend.data", "zepto.exte
             shareData.desc = desc;
             shareData.site = this.options.via;
             shareData.pics = imgSrc.join("|");
-            // TODO: 抓取图片多张
             break;
 
           case "qq":

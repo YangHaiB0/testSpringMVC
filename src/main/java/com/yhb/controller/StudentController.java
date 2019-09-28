@@ -19,7 +19,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping("/getStudentAll")
+    @RequestMapping(path = "/getStudentAll")
     public String getStudentAll(Model model,
                                 @RequestParam(value = "page", defaultValue = "1") Integer page,
                                 @RequestParam(value = "pageSize", defaultValue = "4") Integer pageSize) {
@@ -31,7 +31,7 @@ public class StudentController {
         return "/index";
     }
 
-    @RequestMapping("/getStudent")
+    @RequestMapping(path = "/getStudent")
     public String getStudentBy(Model model,
                                @RequestParam(value = "id", required = false) Integer id,
                                @RequestParam(value = "name", required = false) String name) {
