@@ -30,7 +30,7 @@ public class HelloController {
                     //通过token查询出用户
                     User user = userMapper.searchUserByToken(token);
                     if (Boolean.TRUE.equals(user.isAdmin())) {
-                        return "redirect:/adminStudent";
+                        return "redirect:/adminUser";
                     } else {
                         return "index";
                     }

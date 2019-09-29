@@ -1,5 +1,6 @@
-<!doctype html>
-<html class="no-js">
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,11 +22,6 @@
     <script src="static/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-    以获得更好的体验！</p>
-<![endif]-->
-
 <header class="am-topbar admin-header">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -60,117 +56,104 @@
 </header>
 
 <div class="am-cf admin-main">
-    <!-- sidebar start -->
     <div class="admin-sidebar">
         <ul class="am-list admin-sidebar-list">
-            <li><a href="admin-index.html"><span class="am-icon-home"></span> 首页</a></li>
             <li class="admin-parent">
-                <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 页面模块
+                <a class="am-cf" data-am-collapse="{target: '#collapse-student'}"><span class="am-icon-file"></span>
+                    学生管理
                     <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                    <li><a href="admin-infomation.jsp" class="am-cf"><span class="am-icon-check"></span> 个人资料<span
+                <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-student">
+                    <li><a href="/adminStudent"><span class="am-icon-table"></span> 表格<span
                             class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-                    <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 帮助页</a></li>
-                    <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 相册页面<span
-                            class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
-                    <li><a href="admin-log.html"><span class="am-icon-calendar"></span> 系统日志</a></li>
-                    <li><a href="admin-404.html"><span class="am-icon-bug"></span> 404</a></li>
                 </ul>
             </li>
-            <li><a href="admin-table.html"><span class="am-icon-table"></span> 表格</a></li>
-            <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a></li>
-            <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
+            <li class="admin-parent">
+                <a class="am-cf" data-am-collapse="{target: '#collapse-user'}"><span class="am-icon-file"></span> 用户管理
+                    <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-user">
+                    <li><a href="/adminUser"><span class="am-icon-table"></span> 表格<span
+                            class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                </ul>
+            </li>
+            <li><a href="/adminLogout"><span class="am-icon-sign-out"></span> 注销</a></li>
         </ul>
-
         <div class="am-panel am-panel-default admin-sidebar-panel">
             <div class="am-panel-bd">
                 <p><span class="am-icon-bookmark"></span> 公告</p>
                 <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
             </div>
         </div>
-
-        <div class="am-panel am-panel-default admin-sidebar-panel">
-            <div class="am-panel-bd">
-                <p><span class="am-icon-tag"></span> wiki</p>
-                <p>Welcome to the Amaze UI wiki!</p>
-            </div>
-        </div>
     </div>
-    <!-- sidebar end -->
 
     <!-- content start -->
     <div class="admin-content">
         <div class="am-cf am-padding">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">个人资料</strong> / <small>Personal
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">用户信息</strong> / <small>user
                 information</small></div>
         </div>
-
         <hr/>
-
         <div class="am-g">
-
             <div class="col-sm-12 col-md-4 col-md-push-8">
-                <div class="am-panel am-panel-default">
-                    <div class="am-panel-bd">
-                        <div class="am-g">
-                            <div class="col-md-4">
-                                <img class="am-img-circle am-img-thumbnail"
-                                     src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80"
-                                     alt=""/>
-                            </div>
-                            <div class="col-md-8">
-                                <p>你可以使用<a href="#">gravatar.com</a>提供的头像或者使用本地上传头像。 </p>
-                                <form class="am-form">
-                                    <div class="am-form-group">
-                                        <input type="file" id="user-pic">
-                                        <p class="am-form-help">请选择要上传的文件...</p>
-                                        <button type="button" class="am-btn am-btn-primary am-btn-xs">保存</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--头像修改-->
+                <%--                <div class="am-panel am-panel-default">--%>
+                <%--                    <div class="am-panel-bd">--%>
+                <%--                        <div class="am-g">--%>
+                <%--                            <div class="col-md-4">--%>
+                <%--                                <img class="am-img-circle am-img-thumbnail"--%>
+                <%--                                     src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80"--%>
+                <%--                                     alt=""/>--%>
+                <%--                            </div>--%>
+                <%--                            <div class="col-md-8">--%>
+                <%--                                <p>你可以使用<a href="#">gravatar.com</a>提供的头像或者使用本地上传头像。 </p>--%>
+                <%--                                <form class="am-form">--%>
+                <%--                                    <div class="am-form-group">--%>
+                <%--                                        <input type="file" id="user-pic">--%>
+                <%--                                        <p class="am-form-help">请选择要上传的文件...</p>--%>
+                <%--                                        <button type="button" class="am-btn am-btn-primary am-btn-xs">保存</button>--%>
+                <%--                                    </div>--%>
+                <%--                                </form>--%>
+                <%--                            </div>--%>
+                <%--                        </div>--%>
+                <%--                    </div>--%>
+                <%--                </div>--%>
             </div>
 
             <div class="col-sm-12 col-md-8 col-md-pull-4">
-                <form class="am-form am-form-horizontal" action="/createOrUpdateUser">
+                <form class="am-form am-form-horizontal" action="/updateUser">
+                    <div hidden>
+                        <input type="text" id="user-id" name="id" value="${user.userId}">
+                    </div>
                     <div class="am-form-group">
                         <label for="user-name" class="col-sm-3 am-form-label">姓名 / Name</label>
                         <div class="col-sm-9">
-                            <input type="password" id="user-name" placeholder="姓名 / Name">
-                            <small>输入你的名字，让我们记住你。</small>
+                            <input type="text" id="user-name" name="name" placeholder="${user.userName}"
+                                   value="${user.userName}">
                         </div>
                     </div>
                     <div class="am-form-group">
                         <label for="user-email" class="col-sm-3 am-form-label">电子邮件 / Email</label>
                         <div class="col-sm-9">
-                            <input type="email" id="user-email" placeholder="输入你的电子邮件 / Email">
-                            <small>邮箱你懂得...</small>
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label for="user-phone" class="col-sm-3 am-form-label">电话 / Telephone</label>
-                        <div class="col-sm-9">
-                            <input type="email" id="user-phone" placeholder="输入你的电话号码 / Telephone">
+                            <input type="email" id="user-email" name="email" placeholder="${user.userEmail}"
+                                   value="${user.userEmail}">
                         </div>
                     </div>
                     <div class="am-form-group">
                         <label for="user-QQ" class="col-sm-3 am-form-label">QQ</label>
                         <div class="col-sm-9">
-                            <input type="email" id="user-QQ" placeholder="输入你的QQ号码">
+                            <input type="text" id="user-QQ" name="qq" placeholder="${user.userQq}"
+                                   value="${user.userQq}">
                         </div>
                     </div>
                     <div class="am-form-group">
                         <label for="user-intro" class="col-sm-3 am-form-label">简介 / Intro</label>
                         <div class="col-sm-9">
-                            <textarea class="" rows="5" id="user-intro" placeholder="输入个人简介"></textarea>
-                            <small>250字以内写出你的一生...</small>
+                            <textarea class="" rows="5" id="user-intro" name="info"
+                                      placeholder="${user.userInfo}">${user.userInfo}</textarea>
                         </div>
                     </div>
                     <div class="am-form-group">
                         <div class="col-sm-9 col-sm-push-3">
-                            <button type="button" class="am-btn am-btn-primary">保存修改</button>
+                            <button type="submit" class="am-btn am-btn-primary">保存修改</button>
                         </div>
                     </div>
                 </form>

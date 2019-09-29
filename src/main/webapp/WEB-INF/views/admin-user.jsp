@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -74,10 +76,7 @@
                             class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
                 </ul>
             </li>
-            <li><a href="#"><span class="am-icon-sign-out"></span> 注销
-            <li><a href="admin-user.jsp"><span class="am-icon-table"></span> 表格<span
-                    class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            </a></li>
+            <li><a href="/adminLogout"><span class="am-icon-sign-out"></span> 注销</a></li>
         </ul>
         <div class="am-panel am-panel-default admin-sidebar-panel">
             <div class="am-panel-bd">
@@ -108,42 +107,44 @@
         <div class="am-g">
             <div class="col-sm-12">
                 <form class="am-form">
-                    <table class="am-table am-table-striped am-table-hover table-main">
+                    <table class="am-table am-table-striped am-table-hover table-main" id="table">
                         <thead>
                         <tr>
-                            <th class="table-id">ID</th>
-                            <th class="table-title">标题</th>
-                            <th class="table-type">类别</th>
-                            <th class="table-author">作者</th>
-                            <th class="table-date">修改日期</th>
-                            <th class="table-set">操作</th>
+                            <th class="table-name" id="userName">用户名</th>
+                            <th class="table-email" id="userEmail">邮箱</th>
+                            <th class="table-qq" id="userQq">QQ</th>
+                            <th class="table-info" id="userInfo">简介</th>
+                            <th class="table-set" id="userSet">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="#">Business management</a></td>
-                            <td>default</td>
-                            <td>测试1号</td>
-                            <td>2014年9月4日 7:28:47</td>
-                            <td>
-                                <div class="am-btn-toolbar">
-                                    <div class="am-btn-group am-btn-group-xs">
-                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span
-                                                class="am-icon-pencil-square-o"></span> 编辑
-                                        </button>
-                                        <button class="am-btn am-btn-default am-btn-xs"><span
-                                                class="am-icon-copy"></span> 复制
-                                        </button>
-                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span
-                                                class="am-icon-trash-o"></span> 删除
-                                        </button>
+                        <c:forEach items="${userInfo}" var="user">
+                            <tr>
+                                <td>${user.userName}</td>
+                                <td>${user.userEmail}</td>
+                                <td>${user.userQq}</td>
+                                <td>${user.userInfo}</td>
+                                <td>
+                                    <div class="am-btn-toolbar">
+                                        <div class="am-btn-group am-btn-group-xs">
+                                            <a href="/adminInformation?id=${user.userId}">
+                                                <span class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                                    <span class="am-icon-pencil-square-o"></span> 编辑
+                                                </span>
+                                            </a>
+                                            <a href="/deleteUser?id=${user.userId}">
+                                                <span class="am-btn am-btn-default am-btn-xs am-text-danger">
+                                                    <span class="am-icon-trash-o"></span> 删除
+                                                </span>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
+                    <!--分页-->
                     <div class="am-cf">
                         共 15 条记录
                         <div class="am-fr">

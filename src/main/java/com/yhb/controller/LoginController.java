@@ -55,11 +55,12 @@ public class LoginController {
         User searchUser = userService.checkedUser(user);
         if (Boolean.TRUE.equals(searchUser != null)) {
             //生成一个token
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             //更新user token
             userService.updateUser(user);
             //将token添加到Cookie和Session中
-            Cookie cookie = new Cookie(TOKEN, TOKEN);
+            Cookie cookie = new Cookie(TOKEN, token);
             cookie.setHttpOnly(true);
             cookie.setMaxAge(3600);
             response.addCookie(cookie);
