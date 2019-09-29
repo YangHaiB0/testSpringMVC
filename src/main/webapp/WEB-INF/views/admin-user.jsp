@@ -132,7 +132,7 @@
                                                     <span class="am-icon-pencil-square-o"></span> 编辑
                                                 </span>
                                             </a>
-                                            <a href="/deleteUser?id=${user.userId}">
+                                            <a href="/adminDeleteUser?id=${user.userId}">
                                                 <span class="am-btn am-btn-default am-btn-xs am-text-danger">
                                                     <span class="am-icon-trash-o"></span> 删除
                                                 </span>

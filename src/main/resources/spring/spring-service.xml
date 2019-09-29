@@ -20,5 +20,11 @@
             <mvc:exclude-mapping path="/log*"/>
             <bean class="com.yhb.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin*"/>
+            <mvc:mapping path="/*User"/>
+            <mvc:exclude-mapping path="/log*"/>
+            <bean class="com.yhb.interceptor.AdminInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 </beans>

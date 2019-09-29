@@ -119,7 +119,7 @@
             </div>
 
             <div class="col-sm-12 col-md-8 col-md-pull-4">
-                <form class="am-form am-form-horizontal" action="/updateUser">
+                <form class="am-form am-form-horizontal" action="/adminUpdateUser">
                     <div hidden>
                         <input type="text" id="user-id" name="id" value="${user.userId}">
                     </div>

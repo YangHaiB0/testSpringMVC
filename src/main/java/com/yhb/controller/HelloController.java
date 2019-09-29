@@ -40,6 +40,10 @@ public class HelloController {
         return "index";
     }
 
+    @RequestMapping(path = "404")
+    public String noFound(){
+        return "404";
+    }
     @RequestMapping(path = "/hello")
     public String hello() {
         return "hello";

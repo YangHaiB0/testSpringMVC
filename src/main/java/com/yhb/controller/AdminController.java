@@ -27,13 +27,13 @@ public class AdminController {
     @Autowired
     private StudentMapper studentMapper;
 
-    @RequestMapping("/createUser")
+    @RequestMapping("/adminCreateUser")
     public String createUser() {
         // TODO: 2019-09-28 新增用户
         return null;
     }
 
-    @RequestMapping("/updateUser")
+    @RequestMapping("/adminUpdateUser")
     public String updateUser(@RequestParam(name = "id") Integer id,
                              @RequestParam(name = "name") String name,
                              @RequestParam(name = "email") String email,
@@ -50,7 +50,7 @@ public class AdminController {
         return "redirect:/adminUser";
     }
 
-    @RequestMapping("/deleteUser")
+    @RequestMapping("/adminDeleteUser")
     public String deleteUser(@RequestParam(name = "id") Integer id) {
         userMapper.deleteUserById(id);
         log.info("delete user ,user id is " + id);
