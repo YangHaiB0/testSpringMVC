@@ -27,24 +27,28 @@ public class AdminController {
     @Autowired
     private StudentMapper studentMapper;
 
-    @RequestMapping("/adminCreateUser")
-    public String createUser() {
-        // TODO: 2019-09-28 新增用户
-        return null;
-    }
-
-    @RequestMapping("/adminUpdateUser")
-    public String updateUser(@RequestParam(name = "id") Integer id,
+    @RequestMapping("/adminUpdateOrCreateUser")
+    public String updateUser(Model model,
+                             @RequestParam(name = "id",required = false) Integer id,
                              @RequestParam(name = "name") String name,
+                             @RequestParam(name = "password",required = false) String password,
                              @RequestParam(name = "email") String email,
                              @RequestParam(name = "qq") String qq,
-                             @RequestParam(name = "info") String info) {
+                             @RequestParam(name = "info") String info,
+                             @RequestParam(name = "checked", required = false) String isAdmin) {
         User user = new User();
-        user.setUserId(id);
         user.setUserName(name);
         user.setUserEmail(email);
         user.setUserQq(qq);
         user.setUserInfo(info);
+        if (isAdmin != null) {
+            user.setUserPassword(password);
+            user.setAdmin("isAdmin".equals(isAdmin));
+            userMapper.createUser(user);
+            log.info("create user " + user.toString());
+            return "redirect:/adminUser";
+        }
+        user.setUserId(id);
         userMapper.updateUserById(user);
         log.info("update user " + user.toString());
         return "redirect:/adminUser";
@@ -66,9 +70,14 @@ public class AdminController {
     }
 
     @RequestMapping("/adminInformation")
-    public String adminInformation(@RequestParam(name = "id") Integer id, Model model) {
-        User user = userMapper.searchUserById(id);
-        model.addAttribute("user", user);
+    public String adminInformation(@RequestParam(name = "id", required = false) Integer id, Model model) {
+        if (id != null) {
+            //id不为空,表示是更新用户信息
+            model.addAttribute("user", userMapper.searchUserById(id));
+        } else {
+            //id为空,表示是新增用户
+            model.addAttribute("user", new User());
+        }
         return "admin-information";
     }
 

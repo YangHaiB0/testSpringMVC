@@ -91,7 +91,13 @@
         </div>
         <!--搜索-->
         <div class="am-g">
-            <div class="col-md-6 am-cf"></div>
+            <div class="col-md-6 am-cf">
+                <a href="/adminInformation">
+                    <span class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                        <span class="am-icon-pencil-square-o"></span> 增加
+                    </span>
+                </a>
+            </div>
             <div class="col-md-3 am-cf">
                 <div class="am-fr">
                     <div class="am-input-group am-input-group-sm">
@@ -127,12 +133,12 @@
                                 <td>
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs">
-                                            <a href="/adminInformation?id=${user.userId}">
+                                            <a href="/adminInformation?id=${user.userId}" methods="post">
                                                 <span class="am-btn am-btn-default am-btn-xs am-text-secondary">
                                                     <span class="am-icon-pencil-square-o"></span> 编辑
                                                 </span>
                                             </a>
-                                            <a href="/adminDeleteUser?id=${user.userId}">
+                                            <a href="/adminDeleteUser?id=${user.userId}" methods="post">
                                                 <span class="am-btn am-btn-default am-btn-xs am-text-danger">
                                                     <span class="am-icon-trash-o"></span> 删除
                                                 </span>

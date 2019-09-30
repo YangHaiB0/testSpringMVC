@@ -119,7 +119,8 @@
             </div>
 
             <div class="col-sm-12 col-md-8 col-md-pull-4">
-                <form class="am-form am-form-horizontal" action="/adminUpdateUser">
+                <form class="am-form am-form-horizontal" action="/adminUpdateOrCreateUser" method="post"
+                      onsubmit="return updateOrCreateUser()">
                     <div hidden>
                         <input type="text" id="user-id" name="id" value="${user.userId}">
                     </div>
@@ -130,6 +131,21 @@
                                    value="${user.userName}">
                         </div>
                     </div>
+                    <c:if test="${user.userName == null}">
+                        <div class="am-form-group">
+                            <label for="user-intro" class="col-sm-3 am-form-label">密码 / Password</label>
+                            <div class="col-sm-9">
+                                <input type="password" name="password" id="user-password">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-intro" class="col-sm-3 am-form-label">重复密码 / Password</label>
+                            <div class="col-sm-9">
+                                <input type="password" id="user-password-re">
+                            </div>
+                        </div>
+                    </c:if>
+
                     <div class="am-form-group">
                         <label for="user-email" class="col-sm-3 am-form-label">电子邮件 / Email</label>
                         <div class="col-sm-9">
@@ -151,9 +167,19 @@
                                       placeholder="${user.userInfo}">${user.userInfo}</textarea>
                         </div>
                     </div>
+                    <c:if test="${user.userName == null}">
+                        <div class="am-form-group">
+                            <label for="user-intro" class="col-sm-3 am-form-label">是否管理员 / Admin</label>
+                            <div class="col-sm-9">
+                                <input hidden name="checked" id="user-is-admin" value="notAdmin">
+                                <input type="checkbox" id="user-check-is-admin" value="notAdmin"
+                                       class="am-btn am-btn-primary am-btn-sm am-fl" onclick="isAdminCheck(this)">
+                            </div>
+                        </div>
+                    </c:if>
                     <div class="am-form-group">
                         <div class="col-sm-9 col-sm-push-3">
-                            <button type="submit" class="am-btn am-btn-primary">保存修改</button>
+                            <button type="submit" class="am-btn am-btn-primary">提交</button>
                         </div>
                     </div>
                 </form>
@@ -169,8 +195,56 @@
     <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
 </footer>
 
-<script src="assets/js/zepto.min.js"></script>
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="static/assets/js/zepto.min.js"></script>
+<script src="static/assets/js/amazeui.min.js"></script>
+<script src="static/assets/js/app.js"></script>
+<script>
+    function isAdminCheck(obj) {
+        var checked = $("#user-check-is-admin").prop("checked");
+        if (checked === true) {
+            $("#user-is-admin").prop("value", "isAdmin");
+        } else {
+            $("#user-is-admin").prop("value", "notAdmin");
+        }
+    }
+
+    function updateOrCreateUser() {
+        //用户名为空判断
+        var username = document.getElementById("user-name");
+        if (username.value.length === 0) {
+            confirm("请输入用户名");
+            return false;
+        }
+        //密码为空判断
+        var password = document.getElementById("user-password");
+        if (password.value.length === 0) {
+            confirm("请输入密码");
+            return false;
+        }
+        //重复密码为空判断
+        var re_password = document.getElementById("user-password-re");
+        if (re_password.value.length === 0) {
+            confirm("请再次确认密码");
+            return false;
+        }
+        //两次密码一致性判断
+        if (password.value !== re_password.value) {
+            confirm("两次密码不一致");
+            return false;
+        }
+        //电子邮件正确性判断
+        var userEmail = document.getElementById("user-email");
+        if (userEmail.value.length === 0) {
+            confirm("请输入邮箱");
+            return false;
+        }
+        var reg = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+(([.\-])[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        if (!reg.test(userEmail.value)) {
+            confirm("邮箱格式不正确");
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>

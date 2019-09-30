@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
@@ -74,10 +75,7 @@
                             class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
                 </ul>
             </li>
-            <li><a href="#"><span class="am-icon-sign-out"></span> 注销
-            <li><a href="admin-user.jsp"><span class="am-icon-table"></span> 表格<span
-                    class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            </a></li>
+            <li><a href="/adminLogout"><span class="am-icon-sign-out"></span> 注销</a></li>
         </ul>
         <div class="am-panel am-panel-default admin-sidebar-panel">
             <div class="am-panel-bd">
@@ -88,7 +86,7 @@
     </div>
     <div class="admin-content">
         <div class="am-cf am-padding">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">用户表</strong> / <small>User</small></div>
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">学生表</strong> / <small>Student</small></div>
         </div>
         <!--搜索-->
         <div class="am-g">
@@ -112,36 +110,27 @@
                         <thead>
                         <tr>
                             <th class="table-id">ID</th>
-                            <th class="table-title">标题</th>
-                            <th class="table-type">类别</th>
-                            <th class="table-author">作者</th>
-                            <th class="table-date">修改日期</th>
-                            <th class="table-set">操作</th>
+                            <th class="table-title">姓名</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="#">Business management</a></td>
-                            <td>default</td>
-                            <td>测试1号</td>
-                            <td>2014年9月4日 7:28:47</td>
-                            <td>
-                                <div class="am-btn-toolbar">
-                                    <div class="am-btn-group am-btn-group-xs">
-                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span
-                                                class="am-icon-pencil-square-o"></span> 编辑
-                                        </button>
-                                        <button class="am-btn am-btn-default am-btn-xs"><span
-                                                class="am-icon-copy"></span> 复制
-                                        </button>
-                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span
-                                                class="am-icon-trash-o"></span> 删除
-                                        </button>
+                        <c:forEach items="${studentInfo}" var="student">
+                            <tr>
+                                <td>${student.studentId}</td>
+                                <td>${student.studentName}</td>
+                                <td>
+                                    <div class="am-btn-toolbar">
+                                        <div class="am-btn-group am-btn-group-xs">
+                                            <a href="/adminDeleteStudent?id=${student.studentName}">
+                                                <span class="am-btn am-btn-default am-btn-xs am-text-danger">
+                                                    <span class="am-icon-trash-o"></span> 删除
+                                                </span>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                     <div class="am-cf">

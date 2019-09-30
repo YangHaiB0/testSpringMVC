@@ -60,5 +60,11 @@ public interface UserMapper {
      * @return User
      */
     User searchUserById(Integer id);
+
+    /**
+     * 创建新用户
+     * @param user 需要创建的用户
+     */
+    void createUser(User user);
 }
 
